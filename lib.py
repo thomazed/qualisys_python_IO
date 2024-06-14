@@ -1,9 +1,6 @@
-
 import asyncio  
 import xml.etree.ElementTree as ET
 import pkg_resources
-import multiprocessing as mt
-
 import qtm_rt
 
 QTM_FILE = pkg_resources.resource_filename("qtm_rt", "data/Demo.qtm")
@@ -68,15 +65,13 @@ async def main(queue,_6DOF_Name,IP,Password):
             # Extract one specific body
             wanted_index = body_index[wanted_body]
             position, rotation = bodies[wanted_index]
-            #print("\n{}\n - Pos: {}\n - Rot: {}".format(wanted_body, position, rotation))
             queue.put((position,rotation))
 
             
         else:
             # Print all bodies
             for position, rotation in bodies:
-                #print("Pos: {} - Rot: {}".format(position, rotation))
-                print("ERROR: ")
+                print("ERROR: não pode achar corpo rigido")
 
     # Start streaming frames
     await connection.stream_frames(components=["6d"], on_packet=on_packet)
@@ -86,17 +81,3 @@ async def main(queue,_6DOF_Name,IP,Password):
         msg = await asyncio.to_thread(queue.get)
         if msg == "stop":
             break
-
-    #await asyncio.sleep(1)
-
-    # Wait asynchronously 5 seconds
-    # await asyncio.sleep(10)
-
-    # Stop streaming
-    # await connection.stream_frames_stop()
-
-"""
-if __name__ == "__main__":
-    # Run our asynchronous function until complete
-    asyncio.get_event_loop().run_until_complete(main())
-"""

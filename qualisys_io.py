@@ -1,13 +1,7 @@
-import asyncio  
-import xml.etree.ElementTree as ET
-import pkg_resources
 import multiprocessing as mt
-import time
-
-import qtm_rt
 import lib
 
-class Main:
+class qualisys_io:
     def __init__(self,_6DOF_Name,IP,Password):
         self._6DOF_Name = _6DOF_Name
         self.IP = IP
@@ -40,7 +34,6 @@ class Main:
             if last_position and last_rotation:
                 self.posisao = [last_position.x, last_position.y, last_position.z]
                 self.rotacao = last_rotation.matrix
-                #print(f"Atualizado: Pos - {self.posisao}, Rot - {self.rotacao}")
                 return self.posisao, self.rotacao
             else:
                 return None, None

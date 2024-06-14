@@ -2,10 +2,14 @@
 import asyncio  
 import xml.etree.ElementTree as ET
 import pkg_resources
+import multiprocessing as mt
 
 import qtm_rt
 
 QTM_FILE = pkg_resources.resource_filename("qtm_rt", "data/Demo.qtm")
+
+def run(queue,_6DOF_Name,IP,Password):
+    asyncio.get_event_loop().run_until_complete(main(queue,_6DOF_Name,IP,Password))
 
 
 def create_body_index(xml_string):
@@ -22,10 +26,10 @@ def body_enabled_count(xml_string):
     xml = ET.fromstring(xml_string)
     return sum(enabled.text == "true" for enabled in xml.findall("*/Body/Enabled"))
 
-async def main():
+async def main(queue,_6DOF_Name,IP,Password):
 
     # Connect to qtm
-    connection = await qtm_rt.connect("192.168.0.26")
+    connection = await qtm_rt.connect(IP)
 
     # Connection failed?
     if connection is None:
@@ -33,7 +37,7 @@ async def main():
         return
 
     # Take control of qtm, context manager will automatically release control after scope end
-    async with qtm_rt.TakeControl(connection, "password"):
+    async with qtm_rt.TakeControl(connection, Password):
 
         realtime = True
 
@@ -53,7 +57,7 @@ async def main():
 
     print("{} of {} 6DoF bodies enabled".format(body_enabled_count(xml_string), len(body_index)))
 
-    wanted_body = "test-cachorro-2"
+    wanted_body = _6DOF_Name
 
     def on_packet(packet):
         info, bodies = packet.get_6d()
@@ -76,10 +80,13 @@ async def main():
     # Start streaming frames
     await connection.stream_frames(components=["6d"], on_packet=on_packet)
 
-    #while(True):
-    #    await asyncio.sleep(1)
+    while(True):
+        await asyncio.sleep(1)
+        msg = await asyncio.to_thread(queue.get)
+        if msg == "stop":
+            break
 
-    await asyncio.sleep(1)
+    #await asyncio.sleep(1)
 
     # Wait asynchronously 5 seconds
     # await asyncio.sleep(10)

@@ -61,21 +61,22 @@ async def main(queue,_6DOF_Name,IP,Password):
 
     def on_packet(packet):
         info, bodies = packet.get_6d()
-        print(
-            "Framenumber: {} - Body count: {}".format(
-                packet.framenumber, info.body_count
-            )
-        )
+
+        #print("Framenumber: {} - Body count: {}".format(packet.framenumber, info.body_count))
 
         if wanted_body is not None and wanted_body in body_index:
             # Extract one specific body
             wanted_index = body_index[wanted_body]
             position, rotation = bodies[wanted_index]
-            print("\n{}\n - Pos: {}\n - Rot: {}".format(wanted_body, position, rotation))
+            #print("\n{}\n - Pos: {}\n - Rot: {}".format(wanted_body, position, rotation))
+            queue.put((position,rotation))
+
+            
         else:
             # Print all bodies
             for position, rotation in bodies:
-                print("Pos: {} - Rot: {}".format(position, rotation))
+                #print("Pos: {} - Rot: {}".format(position, rotation))
+                print("ERROR: ")
 
     # Start streaming frames
     await connection.stream_frames(components=["6d"], on_packet=on_packet)

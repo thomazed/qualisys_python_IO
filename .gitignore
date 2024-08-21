@@ -1,1 +1,5 @@
 /test/
+/build/
+/dist/
+/__pycache__/
+/qualisys_tools/__pycache__/

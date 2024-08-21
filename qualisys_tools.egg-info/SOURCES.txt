@@ -1,0 +1,8 @@
+README.md
+setup.py
+qualisys_tools/__init__.py
+qualisys_tools/qualisys_tools.py
+qualisys_tools.egg-info/PKG-INFO
+qualisys_tools.egg-info/SOURCES.txt
+qualisys_tools.egg-info/dependency_links.txt
+qualisys_tools.egg-info/top_level.txt

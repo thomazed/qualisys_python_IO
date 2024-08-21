@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
 import time
-import qualisys_io
+from qualisys_tools import qualisys_io
 
-a = qualisys_io.qualisys_io("test-cachorro-2","192.168.0.26","password")
+a = qualisys_io("lego","192.168.0.26","password")
 
 a.connect()
 time.sleep(1)

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "Qualisys_Python_IO"
+version = "0.0.2"
+dependencies = ["qtm_rt", "setuptools"]
+authors = [
+  { name="Thomaz Eduardo Hinka", email="thomazeduhinka@gmail.com" },
+]
+description = "A python packege to get data from qualisys cameras"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/thomazed/qualisys_python_IO"
+Issues = "https://github.com/thomazed/qualisys_python_IO/issues"

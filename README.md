@@ -20,4 +20,20 @@ Files
 
 How to Use
 ----------
-1. 
+1. example:
+
+import time
+from Qualisys_Python_IO import qualisys_tools
+
+a = qualisys_tools.qualisys_io("legoV2","192.168.0.26","password")
+
+a.connect()
+time.sleep(1)
+p,r = a.get_position_rotation()
+print(p,"\n",r)
+
+a.stop()
+
+INSTALATION
+-----------
+1. pip install Qualisys-Python-IO

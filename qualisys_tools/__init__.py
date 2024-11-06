@@ -1,1 +1,0 @@
-from qualisys_tools.qualisys_tools import qualisys_io

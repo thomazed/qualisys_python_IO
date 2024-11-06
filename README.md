@@ -20,8 +20,9 @@ Files
 
 How to Use
 ----------
-1. example:
+**example:**
 
+```
 import time
 from Qualisys_Python_IO import qualisys_tools
 
@@ -33,7 +34,10 @@ p,r = a.get_position_rotation()
 print(p,"\n",r)
 
 a.stop()
+```
 
 INSTALATION
 -----------
-1. pip install Qualisys-Python-IO
+```
+pip install Qualisys-Python-IO
+```

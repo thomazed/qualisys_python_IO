@@ -26,14 +26,14 @@ How to Use
 import time
 from Qualisys_Python_IO import qualisys_tools
 
-a = qualisys_tools.qualisys_io("legoV2","192.168.0.26","password")
+robo_position = qualisys_tools.qualisys_io("Robo01","192.168.0.26","password")
 
-a.connect()
+robo_position.connect()
 time.sleep(1)
-p,r = a.get_position_rotation()
-print(p,"\n",r)
+position,rotation = robo_position.get_position_rotation()
+print(position,"\n",rotation)
 
-a.stop()
+robo_position.stop()
 ```
 
 INSTALATION
